@@ -1,0 +1,41 @@
+load balancer :- load balancer are used to forward internet traffic to multiple server(ec2 instance)downstream.
+                 (its Round Rolling Process)
+--> launch instance (server)
+  ex. i launch 4 instance 
+script on edit data 
+    #!/bin/bash
+    yum update  -y
+    yum install  httpd  -y
+    systemctl start httpd
+    systemctl enable httpd
+    echo "Hey Jazz $HOSTNAME"  (>) or for redirect data upend on existing use (>>) /var/www/html/index.html  
+
+ launch instance --> status check 2/2 
+
+
+1)tap on load balancer
+2)create load balancer
+3) 3 opptions 1) application lb 2)network lb 3)Gateway lb
+ choose as per requirement
+- Application lb for (HTTP,HTTPS)--> create
+- lb name --> internet-facing --> ipv4
+- mapping choose your region for specific or upto 6
+- security group (create of default)
+-listener and routing 
+  (listening for port that you want to add and rout is distribute trqaffic )
+   - add port 
+   - create target group 
+       -in that  select instance if u want ip address, lambda or application lb 
+            chose as per your work 
+      i choose instance because i am applying load balancer on instace(server)
+       - target group name
+       - protocol version HTTP1
+       - health check default
+       - add tag or optional
+       - select your instance which you want to use for lb
+         --> include as pending below 
+               ( showing below )
+- created target group now go to previous tab and add target
+- add on optional as per requirement
+- tags also opp
+- create load balancer     check status 

@@ -1,0 +1,51 @@
+Accessing website using load balancer.
+
+->lunch configration (for home)->createLC ->name,AMI,Inst type,adv detail (edit data#!/bin/bash
+                                                                      yum update -y
+                                                                      yum install httpd -y
+                                                                   echo "hey this is home page $HOSTNAME" > /var/www/html/index.html
+                                                                      systemctl start httpd
+                                                                    systemctl enable httpd)  ,create security group,key pair.  cCREATE AND LAUNCH
+  lunch configration (for kids)->createLC ->name,AMI,Inst type,adv detail (edit data#!/bin/bash
+                                                                      yum update -y
+                                                                      yum install httpd -y
+                                                                      mkdir -p /var/www/html/kids
+                                                                   echo "hey this is home page $HOSTNAME" > /var/www/html/kids/index.html
+                                                                      systemctl start httpd
+                                                                    systemctl enable httpd)  ,create security group,key pair.  cCREATE AND LAUNCH
+ lunch configration (for movies)->createLC ->name,AMI,Inst type,adv detail (edit data#!/bin/bash
+                                                                      yum update -y
+                                                                      yum install httpd -y
+                                                                      mkdir -p /var/www/html/movies
+                                                                   echo "hey this is home page $HOSTNAME" > /var/www/html/movies/index.html
+                                                                      systemctl start httpd
+                                                                    systemctl enable httpd)  ,create security group,key pair.  cCREATE AND LAUNCH
+
+->autoscaling group -> name,choose lunch conf (home) ,same and launch (go to instance and change name to home)
+->autoscaling group -> name,choose lunch conf (kids) ,same and launch (go to instance and change name to movie)
+->autoscaling group -> name,choose lunch conf (movies) ,same and launch (go to instance and change name to movie)
+
+-> load balancr (name,scheme(internet-facing),ipv4, mapping select all zones,add security group (two group need to add)
+now in listner create tags so now iam creating 3 tags simultaneously for (home,kids,movies) select seprate 2 seprate 2 ., 2
+-> 1)target group (name,basic conf(for instance),health check NEXT
+   register target select 2 instance of home and include as pending below now tap on CREATE TARGET GROUP.
+ ---so first target group created sucessfully
+   2)sencond target group for kids same as per fist but only change is in that health check where we had to add path /kids than further same as above .
+   3)sencond target group for kids same as per fist but only change is in that health check where we had to add path /movies than further same as above .
+
+go back to lb tab and select home in target group in listner only one .
+now create load balancer.
+
+ go to lb and tap on that lb and ->tap on listner in that you find Rules->View/edit rule option ,open that ,
+ apter opening + to add now go tto insert rule, add condition select(path)type /kids* in IF,and THEN select target group kids save .
+again insert rule in IF add condition, add path /movies* , Then target group movies
+ after this go to load balancer copy DNS and search on web 
+
+
+
+
+
+
+
+
+

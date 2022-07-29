@@ -1,0 +1,57 @@
+     **Auto Scaling **
+What is Cloud Autoscaling? Autoscaling (sometimes spelled auto scaling or auto-scaling) is the process of 
+automatically increasing or decreasing the computational resources delivered to a cloud workload based on need.
+
+Scaling :- 
+1) vertical scaling :- it can change instance types .(like c3,t2.micro,m3 etc)
+ in that we have to stop the instances for doing this . in this process DOWNTIME faceing occurs.
+2) Horizontal scaling :- it create  identical instances .(like t2.micro->t2.micro->t2.micro )
+
+ --AUTOSCALING--
+autoscaling has three types 
+1)static autoscaling
+2)dynamic autoscaling
+2) scheduling autoscaling
+
+Lets get started---
+
+1)launch configration --> create lunch configration--> name ->
+    AMI (open new ec2 tab, lauch instance in that open ami and copy ami id(ami-0cff7528ff583bf9a)) and paste in AMI opp in configration
+    -> instance type (t2.micro) -> additional conf (no change)in that tap on Advance detail add script in user data 
+             #!/bin/bash
+             yum update -y
+             yum install httpd -y
+             echo"hey this is a function of :$HOSTNAME" > /var/www/html/index.html
+             systemctl start httpd
+             systemctl enable httpd
+    -> storage (no change) ->security group (create new group)add rule ports http ssh and set to anywhere
+    ->key pair (existing or new ) and acknowledge 
+   -> create . DONE
+2)NOW Autoscaling Groups 
+
+ step 1)-> name -> launch configration (switch to launch config. and add your previous conf) then next
+ step 2) ->vpc (default) -> availability zones  select 
+ step 3) -)load balance opptional -> health check -> additional (opp) NEXT
+ step 4) -> Group size these define (static (ex. desire 2,min 2,max 2) and dynamic (Desire 5, min 3, max 7)
+              from this instance will create as per cpu runs more than 50% new server will create or say request more then instance will created to max
+               if request is less then instance will decrease to minimum)
+         -> Scaling policies (optional) so for now we set on NONE .
+         -> instance scale in protection (opp) NEXT
+ step 5) -> notification (opp)
+ step 6) -> tags
+ step 7) review and launch auto scaling group
+ check instance ip on the browser .
+
+ for extended web server ex. 44.33.234/kids
+             yum update -y
+             yum install httpd -y
+             mkdir -p /var/www/html/kids/index.html
+             echo "hey this is a function of :$HOSTNAME" > /var/www/html/kids/index.html
+             systemctl start httpd
+             systemctl enable httpd
+
+ done scaling part now
+Scheduling configration
+ ->auto scaling group -> tap on which you want to schedule ->below go to Automatic scalling -> 
+    below Scheduled action will show now -> create schedule action
+     
