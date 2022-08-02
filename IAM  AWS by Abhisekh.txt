@@ -1,0 +1,67 @@
+Q.1 what is IAM ?
+   Its identity and Access Management
+   is a web service that helps you securely control access
+   to AWS resources. we use IAM to control who is authenticated (signed in) 
+   and authorized (has permissions) to use resources.
+
+Q.2 who are fedrated user in aws ?
+   Federated users are managed in an external directory
+   and are granted temporary access AWS services/resources ,api
+Q.2.a. Security Token Service .(15min to 36 hrs)
+      STS as a web service that enables you to request temprory,limited privilege credentials
+      for aws IAM users or users you authenticate(fedrated user)
+Q.2.b. Assume role 
+      Typically, you use AssumeRole within your account or for cross-account access.
+      a set of temprory security credintial that you can use to acess aws resources.
+      it consist access key id , a secret access key, and security token.
+Q.2 what is IAM Role ?
+    An IAM role is an IAM identity that you can create in your account that has
+    specific permissions.
+    An IAM role is similar to an IAM user, in that it is an AWS identity 
+    with permission policies  that determine what the identity can and cannot do in AWS.
+    we use  role to communicate between to services.
+
+Q. users in aws
+   1.First-time access only : root user
+   2. IAM Users
+   3. Federating existing users - You have non-AWS users in your identity and authorization system, and they need access to your AWS resources.
+Q. policies and permission in iam 
+   You manage access in AWS by creating policies and attaching them
+   to IAM identities (users, groups of users, or roles) or AWS resources. 
+Q.policy types ?
+   1) Identity-based policies 
+       1.a. Managed policies - we can attached multiple user,group and role .
+         1.a.1. Aws managed policies 
+         1.a.2. Customer managed policies 
+       1.b. Inline policies - it maintain strict one-to-one relationship between a policy and an identity.
+             we can convert inline policies to manage policies .
+   2) Resource-based policies
+   3) Permission Boundaries (managed policies)
+   4) Organization SCPs (service control policies) :- to define maximum permission for account member of an organization.
+   5) Access control lists (ACLs) - acl to control which principle in other acc can acess the resource to which the acl is attached .
+        (similar resource-based poicies)cross account permission
+   6) Session policies - in cli to assume role or fedrated user .but do not grant permission its for session.
+
+Q. Choosing between managed policies and inline policies ?
+-  reusability , central change management , versioning and rolling back ,Delegating permissions management,Automatic updates for AWS managed policies.
+
+Q. what is ABAC for AWS
+   Attribute-based access control (ABAC) is an authorization strategy that defines permissions based on attributes. In AWS, these attributes are called tags.
+.Q cross-account ?
+  You want to share access to certain AWS resources with users under other AWS accounts.
+Q. IAM user groups ?
+  An IAM user group is a collection of IAM users. You can use user groups to specify permissions for a collection of users,
+  which can make those permissions easier to manage for those users. 
+Q.You can't create a "lockout policy" to lock a user out of the account after a specified number of failed sign-in attempts. For enhanced security
+Q. what is permission boundary ?
+  permisssion boundry we used to set maximum permission for managed policies.
+
+Q.access analyzer
+ it helps identify resourse
+  validate iam policies
+  generates iam policies.
+
+Q.Identity providers (0)
+Use an identity provider (IdP) to manage your user identities outside of AWS,
+ but grant the user identities permissions to use AWS resources in your account.
+
