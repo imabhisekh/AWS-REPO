@@ -1,0 +1,40 @@
+NFS(nfs3,nfs4) in linux and in aws its  EFS.
+(Network file system) (Elastic  file System)
+
+allows a user on a client computer to access files over a network in the same way they would access a local storage file.
+>nfs drawback is it is only run in linux. so in aws its efs.
+(2049) port number
+*Step 1
+
+>create 2 instance both have a different Availability zone.
+>in security group we need to add 3 ports ssh,http,nfs.
+
+*Step 2
+
+>now open EFS in aws console
+create filesystem
+go to filesystem id open it and go into the network tab. 
+ and tap on manage , 
+in manage add security group to which istance avail zone you want to add and save .
+ in top corner  you se attach option in that we have 2 choices 
+   1)mount via DNS and  2)mount via Ip
+choose mount via ip
+in mount ip you have to select availability zone for 1st instance and close 
+ after that copy ebs id ex.ebs-1  (fs-0e7ef7d219a457d3b)
+
+*Step 3
+
+and go to putty or mobaxtrem login from server 1 
+> sudo su
+> yum install amazon-efs-utils -y
+>mkdir /dir1
+>mount -t efs (efs-id):/ /dire1
+>df -hT (to check details )
+> make files that will visible to other server over a network.
+
+client side 
+and login from server2 
+ yum install amazon-efs-utils -y
+mount -t efs (efs-id):/ /dire1    (efs id in that attach server 2 zone after that copy this id)
+ in this efs id of second server attach and copy.
+
