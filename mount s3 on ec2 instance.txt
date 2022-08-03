@@ -1,0 +1,51 @@
+How to Mount S3 bucket on EC2 Linux Instance
+
+
+A S3 bucket can be mounted in a AWS instance as a file system known as S3fs. S3fs is a FUSE file-system that allows you to mount an Amazon S3 bucket as a local file-system. 
+Filesystem in Userspace (FUSE) is a simple interface for userspace programs to export a virtual file-system to the Linux kernel.
+ 
+> For CentOS or Red Hat
+# yum update all
+-> For Ubuntu
+# apt-get update
+Step-2:- Install the dependencies.
+-> In CentOS or Red Hat
+# sudo yum install automake fuse fuse-devel gcc-c++ git libcurl-devel libxml2-devel make openssl-devel
+
+In Ubuntu or Debian
+# sudo apt-get install automake autotools-dev fuse g++ git libcurl4-gnutls-dev libfuse-dev libssl-dev libxml2-dev make pkg-config
+
+Step-3:- Clone s3fs source code from git.
+
+# git clone https://github.com/s3fs-fuse/s3fs-fuse.git
+
+Step-4:- Now change to source code  directory, and compile and install the code with the following commands:
+# cd s3fs-fuse
+# ./autogen.sh
+# ./configure --prefix=/usr --with-openssl
+# make
+#sudo make install
+
+Step-5:- Use below command to check where s3fs command is placed in O.S. It will also tell you the installation is ok.
+# which s3fs
+
+Step-6:- Getting the access key and secret key. ITS JUST FOR INFORMATION PROCEED FURTHER
+Go to AWS Menu -> Your AWS Account Name -> My Security Credentials. Here your IAM console will appear.
+You have to go to Users > Your Account name and under permissions Tab, check whether you have 
+sufficient access on S3 bucket. If not, you can manually assign an existing  “S3 Full-Access” policy or 
+create a new policy with sufficient permissions. 
+
+Step-7 :- Create a new file in /etc with the name passwd-s3fs and Paste the access key and secret key in the below format .
+# touch /etc/passwd-s3fs
+# vim /etc/passwd-s3fs
+Your_accesskey:Your_secretkey add this formate in that file
+
+Step-8:- Change the permission of file
+# sudo chmod 640 /etc/passwd-s3fs
+
+Step-9:- Now create a directory or provide the path of an existing directory and mount S3bucket in it.
+# mkdir /mybucket
+# s3fs your_bucketnameins3 /mybucket/ -o passwd_file=/etc/passwd-s3fs
+# df -h 
+now create file here it will show on s3 bucket.
+
