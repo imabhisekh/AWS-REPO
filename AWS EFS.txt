@@ -20,7 +20,7 @@ in manage add security group to which istance avail zone you want to add and sav
    1)mount via DNS and  2)mount via Ip
 choose mount via ip
 in mount ip you have to select availability zone for 1st instance and close 
- after that copy ebs id ex.ebs-1  (fs-0e7ef7d219a457d3b)
+ after that copy ebs id ex.ebs-1  (fs-0e7ef7d)
 
 *Step 3
 
